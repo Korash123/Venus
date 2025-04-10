@@ -1,0 +1,65 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+
+  #* DataSource Config *
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate:
+          hbm2ddl:
+            create_namespaces: true
+          format_sql: true
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+
+
+
+  #** MAIL CONFIG **
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAILING_USERNAME}
+    password: ${MAILING_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  access:
+    token:
+      ttl: 5000
+  refresh:
+    token:
+      ttl: 20
+  secret:
+    key: ${JWT_SECRET_KEY}
+
+
+file:
+  upload-dir: ${FILE_UPLOAD_DIR}
+
+encryption:
+  key: ${ENCRYPTION_KEY}
+
+
+reset-link:
+  expiration-time: ${resetLinkExpiration}
