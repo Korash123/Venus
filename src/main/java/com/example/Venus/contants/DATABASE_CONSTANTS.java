@@ -11,11 +11,6 @@ public class DATABASE_CONSTANTS {
     public static final String ADD_ROLE = "mst.insert_roles_data";
     public static final String UPDATE_ROLE = "mst.update_roles_data";
     public static final String DELETE_ROLE = "mst.delete_roles_data";
-    public static final String GET_ALL_MENUS_AND_ACTIONS = "mst.get_all_menus_and_actions";
 
-    public static final String GET_UPCOMING_HOLIDAYS = "mst.get_upcoming_events";
-    public static final String GET_MONTHS_HOLIDAYS = "mst.get_holidays_by_month";
-
-    public static final String GET_MENU_ACTIONS = "mst.get_menu_actions";
 
 }

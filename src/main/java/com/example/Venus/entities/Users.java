@@ -64,8 +64,8 @@ public class Users extends BaseEntity implements UserDetails {
     @JsonProperty("is_verified")
     private Boolean isVerified = false;
 
-//    @Column(name = "profile_picture")
-//    private String profilePicture;
+    @Column(name = "profile_picture")
+    private String profilePicture;
 
     @Override
     @JsonIgnore

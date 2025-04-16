@@ -3,8 +3,10 @@ package com.example.Venus.controller;
 
 import com.example.Venus.base.BaseController;
 import com.example.Venus.contants.URL_CONSTANTS;
+import com.example.Venus.dto.global.GlobalApiRequest;
 import com.example.Venus.dto.global.GlobalApiResponse;
 import com.example.Venus.dto.request.EventsNewsRequestDto;
+import com.example.Venus.dto.response.EventNewResponseDto;
 import com.example.Venus.service.EventNewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,27 @@ public class EventNewsController extends BaseController {
         eventNewsService.createAndUpdateEventNews(eventNewsDto, attachmentFiles);
         return getSuccessResponse("event.news.create.update.success", "Event News created or updated successfully", HttpStatus.OK);
     }
+
+    @GetMapping(URL_CONSTANTS.COMMON.GETBYID)
+    public GlobalApiResponse<?> getEventNewById(@PathVariable Long id   ) throws Exception {
+        EventNewResponseDto eventNewResponseDto = eventNewsService.getEventNewById(id);
+        return getSuccessResponse("event.news.get.success", eventNewResponseDto, HttpStatus.OK);
+    }
+
+
+    @GetMapping(URL_CONSTANTS.COMMON.GET_ALL)
+    public GlobalApiResponse<?> getEventNews() throws Exception {
+        List<EventNewResponseDto> eventNewResponseDtos =  eventNewsService.getAllEventNews();
+        return getSuccessResponse("event.news.get.success",eventNewResponseDtos, HttpStatus.OK);
+    }
+
+    @DeleteMapping(URL_CONSTANTS.COMMON.DELETE_BY_ID)
+    public GlobalApiResponse<?> deleteDocument(@RequestBody GlobalApiRequest<Long> request) {
+        eventNewsService.deleteEventNew(request.getData());
+        return getSuccessResponse("event.news.delete.success", "event deleted successfully", HttpStatus.NO_CONTENT);
+    }
+
+
 
 
 

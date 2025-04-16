@@ -24,26 +24,26 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Basic security configuration
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/api/v1/user-reg/**").permitAll()
-                        .requestMatchers("/api/v1/role/**").permitAll()
-                        .requestMatchers("/api/v1/event-news/**").permitAll()
+                        .requestMatchers("/api/v1/role/**").authenticated()
+                        .requestMatchers("/api/v1/event-news/**").authenticated()
+                        .requestMatchers("/api/v1/faculty-staffs/**").authenticated()
+                        .requestMatchers("/api/v1/profile-picture/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
-                // Add JWT filter before UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-    // Password Encoder bean for bcrypt hashing
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

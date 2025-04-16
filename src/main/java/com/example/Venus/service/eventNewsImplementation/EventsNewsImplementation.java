@@ -1,9 +1,11 @@
 package com.example.Venus.service.eventNewsImplementation;
 
 import com.example.Venus.dto.request.EventsNewsRequestDto;
+import com.example.Venus.dto.response.EventNewResponseDto;
 import com.example.Venus.entities.EventNew;
 import com.example.Venus.entities.Users;
 import com.example.Venus.exception.BadRequestException;
+import com.example.Venus.exception.ResourceNotFoundException;
 import com.example.Venus.repo.EventNewsRepo;
 import com.example.Venus.repo.UsersRepo;
 import com.example.Venus.service.EventNewsService;
@@ -133,6 +135,79 @@ public class EventsNewsImplementation implements EventNewsService {
             throw new BadRequestException("Invalid image index: " + dto.getImageIndex());
         }
 
+        eventNewsRepo.save(eventNew);
+    }
+
+    @Override
+    public EventNewResponseDto getEventNewById(Long id) throws Exception {
+        EventNew event = eventNewsRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found for ID: " + id));
+
+        if (Boolean.TRUE.equals(event.getIsDeleted())) {
+            throw new ResourceNotFoundException("Event is deleted or does not exist for ID: " + id);
+        }
+
+        EventNewResponseDto dto = new EventNewResponseDto();
+        dto.setTitle(event.getTitle());
+        dto.setDescription(event.getDescription());
+        dto.setLocation(event.getLocation());
+        dto.setStartTime(event.getStartTime());
+        dto.setEndTime(event.getEndTime());
+
+        if (event.getImageUrl() != null) {
+            String encryptedUrl = encryptionUtil.encrypt(
+                    event.getImageUrl(),
+                    ENCRYPTION_KEY,
+                    SymmetricEncryptionUtil.EncryptionAlgorithm.AES_CBC
+            );
+            dto.setImageUrl(imageUtil.getImageUri(event.getImageUrl(), encryptedUrl));
+        } else {
+            dto.setImageUrl(null);
+        }
+
+        return dto;
+    }
+
+    @Override
+    public List<EventNewResponseDto> getAllEventNews() throws Exception {
+
+        List<EventNew> eventNewList = eventNewsRepo.findByIsDeletedFalse();
+
+        List<EventNewResponseDto> responseDtos = new ArrayList<>();
+
+        for (EventNew event : eventNewList) {
+            if (Boolean.TRUE.equals(event.getIsDeleted())) {
+                continue;
+            }
+
+            EventNewResponseDto dto = new EventNewResponseDto();
+            dto.setTitle(event.getTitle());
+            dto.setDescription(event.getDescription());
+            dto.setLocation(event.getLocation());
+            dto.setStartTime(event.getStartTime());
+            dto.setEndTime(event.getEndTime());
+
+            if (event.getImageUrl() != null) {
+                String encryptedUrl = encryptionUtil.encrypt(
+                        event.getImageUrl(),
+                        ENCRYPTION_KEY,
+                        SymmetricEncryptionUtil.EncryptionAlgorithm.AES_CBC
+                );
+                dto.setImageUrl(imageUtil.getImageUri(event.getImageUrl(), encryptedUrl));
+            } else {
+                dto.setImageUrl(null);
+            }
+
+            responseDtos.add(dto);
+        }
+
+        return responseDtos;
+    }
+
+    public void deleteEventNew(Long id) {
+        EventNew eventNew = eventNewsRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Education document not found for ID: " + id));
+        eventNew.setIsDeleted(true);
         eventNewsRepo.save(eventNew);
     }
 

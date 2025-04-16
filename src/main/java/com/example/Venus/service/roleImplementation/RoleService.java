@@ -49,22 +49,34 @@ public class RoleService {
     }
 
     public void addRole(RolesRequest roleRequest) throws JsonProcessingException {
-        // Convert RolesRequest object to JSON string
+        // Fetch the logged-in user's ID (Admin)
+        Long userId = loggedInUserUtil.getLoggedInUserId(); // This is Admin with `role_id = 1`
+
+        // Set the "createdBy" field with the Admin's user ID
+        roleRequest.setCreateBy(userId);
+
+        // Convert RolesRequest object to JSON string to send to the procedure
         ObjectMapper objectMapper = new ObjectMapper();
         String roleDataJson = objectMapper.writeValueAsString(roleRequest);
 
-        // Now call the procedure using the JSON string
+        log.info("Calling stored procedure with payload: {}", roleDataJson);
+
+        // Call the procedure to insert the new role
         Map<String, Object> response = procedureCallUtil.callProc(
                 DATABASE_CONSTANTS.ADD_ROLE,
                 jdbcTemplate,
                 roleDataJson
         );
 
-        if (response == null || !response.containsKey("role_id")) {
+        log.info("Stored Procedure Response: {}", response);
+
+        if (response == null || response.get("role_id") == null) {
             throw new ResourceNotFoundException("resource.not.found");
         }
+
         log.info("Role added successfully with ID: {}", response.get("role_id"));
     }
+
 
 
 
@@ -88,7 +100,7 @@ public class RoleService {
         // Prepare data for the role update
         Map<String, Object> updatedRoleData = new HashMap<>();
         updatedRoleData.put("name", rolesRequest.getName());
-        updatedRoleData.put("description", rolesRequest.getDescription());
+//        updatedRoleData.put("description", rolesRequest.getDescription());
 //        updatedRoleData.put("selected_actions", rolesRequest.getSelectedActions());
         updatedRoleData.put("updated_by", updatedBy);
 

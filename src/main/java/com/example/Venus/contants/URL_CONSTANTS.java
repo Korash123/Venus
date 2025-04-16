@@ -55,6 +55,9 @@ public class URL_CONSTANTS {
         public static final String MENU_ACTION = "/menus/and/actions/";
 
     }
+    public static class FacultyStaffs{
+        public static final String USER_BASE_URL = API_VERSION_V1 + "/faculty-staffs";
+    }
 
     public static class Admin{
         public static final String USER_BASE_URL = API_VERSION_V1 + "/admin";
@@ -65,7 +68,7 @@ public class URL_CONSTANTS {
 
     }
     public static class ProfilePicture{
-        public static final String USER_BASE_URL = API_VERSION_V1 + "/profilePicture";
+        public static final String USER_BASE_URL = API_VERSION_V1 + "/profile-picture";
     }
 
 }

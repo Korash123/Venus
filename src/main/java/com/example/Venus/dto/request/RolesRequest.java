@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class RolesRequest {
-//    private List<Long> selectedActions;
     private String name;
-    private String description;
+//    private String description;
+    private Long createBy;
 }

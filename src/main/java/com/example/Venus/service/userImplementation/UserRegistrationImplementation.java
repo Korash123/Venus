@@ -2,8 +2,10 @@ package com.example.Venus.service.userImplementation;
 
 import com.example.Venus.dto.request.ForgotPasswordRequest;
 import com.example.Venus.dto.request.LogoutDto;
+import com.example.Venus.dto.request.ProfilePictureRequestDto;
 import com.example.Venus.dto.request.RegisterRequestDto;
 import com.example.Venus.dto.response.AuthLogResponse;
+import com.example.Venus.dto.response.ProfilePictureResponseDto;
 import com.example.Venus.entities.AuthLog;
 import com.example.Venus.entities.Users;
 import com.example.Venus.exception.BadRequestException;
@@ -23,9 +25,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -41,6 +46,10 @@ public class UserRegistrationImplementation implements UserRegistration {
     private final TokenGenerationService tokenGenerationService;
     private final TokenRepository tokenRepository;
     private final JwtUtils jwtUtils;
+    private final LoggedInUserUtil loggedInUserUtil;
+    private final ImageUtil imageUtil;
+    private final SymmetricEncryptionUtil encryptionUtil;
+    private static final String ENCRYPTION_KEY = "QJEZeTLOjV7QRvM0YAQigdkGcBGymMl1gH15LlqXXks=";
 
     @Value("${encryption.key}")
     private String AES_KEY;
@@ -147,7 +156,6 @@ public class UserRegistrationImplementation implements UserRegistration {
         log.info("Password reset link sent to email: {}", forgotPasswordRequest.getEmail());
     }
 
-
     @Override
     public AuthLogResponse resetPassword(String encryptedData, String newPassword) throws Exception {
 
@@ -222,6 +230,61 @@ public class UserRegistrationImplementation implements UserRegistration {
         log.info("User with email {} has successfully logged out.", email);
     }
 
+    @Override
+    public void createOrUpdatedProfilePicture(ProfilePictureRequestDto profilePictureRequestDto) throws IOException {
+
+        Long userId = loggedInUserUtil.getLoggedInUserId();
+        Users loggedInUser = loggedInUserUtil.getLoggedInUser();
+        String userName = loggedInUser.getFullName();
+        String documentSuffix = "/userProfilePicture/userid_" + userId;
+        Users user = usersRepo.findByIdAndIsDeletedFalse(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Id Not Found"));
+
+        if (profilePictureRequestDto.getProfilePicture() != null) {
+            String profileImage = userId + "/profilePicture";
+            Path profileFilePath = Paths.get(documentSuffix, profileImage);
+            String savedProfileFilePath = imageUtil.saveImage(profilePictureRequestDto.getProfilePicture(), profileFilePath.toString());
+            user.setProfilePicture(savedProfileFilePath);
+        } else {
+            user.setProfilePicture(null);
+        }
+        usersRepo.save(user);
+    }
+
+    @Override
+    public ProfilePictureResponseDto getProfilePicture() throws Exception {
+        Long userId = loggedInUserUtil.getLoggedInUserId();
+
+        Users user = usersRepo.findByIdAndIsDeletedFalse(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Id Not Found"));
+
+        ProfilePictureResponseDto responseDto = new ProfilePictureResponseDto();
+
+        if (user.getProfilePicture() != null) {
+            String encryptedProfilePicture = encryptionUtil.encrypt(
+                    user.getProfilePicture(),
+                    ENCRYPTION_KEY,
+                    SymmetricEncryptionUtil.EncryptionAlgorithm.AES_CBC
+            );
+
+            String imageUri = imageUtil.getImageUri(user.getProfilePicture(), encryptedProfilePicture);
+            responseDto.setProfilePicture(imageUri);
+        } else {
+            responseDto.setProfilePicture(null);
+        }
+
+        return responseDto;
+    }
+
+    @Override
+    public void deleteProfilePicture() throws Exception {
+
+        Long userId = loggedInUserUtil.getLoggedInUserId();
+        Users user = usersRepo.findByIdAndIsDeletedFalse(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User Id not found "));
+        user.setProfilePicture(null);
+        usersRepo.save(user);
+    }
 
 
 }
