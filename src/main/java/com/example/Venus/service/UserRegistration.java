@@ -7,11 +7,9 @@ import com.example.Venus.dto.request.RegisterRequestDto;
 import com.example.Venus.dto.response.AuthLogResponse;
 import com.example.Venus.dto.response.ProfilePictureResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 
-@Repository
 public interface UserRegistration {
     void registerUser(RegisterRequestDto registerRequestDto) throws Exception;
     AuthLogResponse resetPassword(String encryptedData, String newPassword) throws Exception;

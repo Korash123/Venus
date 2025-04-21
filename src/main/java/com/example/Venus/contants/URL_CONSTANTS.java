@@ -17,24 +17,18 @@ public class URL_CONSTANTS {
     public static class COMMON{
         public static final String SAVE= "/save";
         public static final String GET_ALL= "/get/all";
-
-
         public static final String GET_BY_ID= "/getById";
         public static final String GET_BY_FIELD= "/get/{field}";
         public static final String UPDATE= "/update/{id}";
         public static final String GETBYID="/get/{id}";
-
-
-
-
         public static final String REFRESH_TOKEN ="/refreshToken";
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
         public static final String REGISTER = "/register";
+        public static final String SUMMARY = "/summary";
         public static final String RESET_PASSWORD = "/validPassword";
         public static final String SET_PASSWORD = "/setPassword";
         public static final String FORGOT_PASSWORD = "/forgot-password";
-
         public static final String DELETE_BY_ID = "/delete/{id}";
         public static final String DELETEBYID = "/delete";
 
@@ -64,11 +58,27 @@ public class URL_CONSTANTS {
         public static final String COMPLETE_EKYE_USER="/completed_ekye_users";
         public static final String GET_SINGLE_COMPLETE_EKYE_USER= "/singleCompleteEkyeUser/{userId}";
         public static final String GET_SINGLE_COMPLETE_EKYE_USER_RCLID= "/singleCompleteEkyeUser/rclId/{rclId}";
-
-
     }
     public static class ProfilePicture{
         public static final String USER_BASE_URL = API_VERSION_V1 + "/profile-picture";
     }
+    public static class Blog{
+        public static final String USER_BASE_URL = API_VERSION_V1 + "/blog";
+    }
+
+    public static class Feedback{
+        public static final String USER_BASE_URL = API_VERSION_V1 + "/feedback";
+    }
+
+
+    public static class Courses{
+        public static final String COURSE_BASE_URL = API_VERSION_V1 + "/courses";
+    }
+
+    public static class CourseContent{
+        public static final String COURSE_BASE_URL = API_VERSION_V1 + "/courseContent";
+    }
+
+
 
 }
