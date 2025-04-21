@@ -20,6 +20,6 @@ public interface UserRegistration {
     void createOrUpdatedProfilePicture(ProfilePictureRequestDto profilePictureRequestDto) throws IOException;
     ProfilePictureResponseDto getProfilePicture() throws Exception;
     void deleteProfilePicture() throws Exception;
-//    public void validateResetLink(ValidateRspwdData validateRspwdData) throws JsonProcessingException;
+//  public void validateResetLink(ValidateRspwdData validateRspwdData) throws JsonProcessingException;
 
 }

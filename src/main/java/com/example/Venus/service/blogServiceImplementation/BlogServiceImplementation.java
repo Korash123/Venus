@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
@@ -63,6 +62,8 @@ public class BlogServiceImplementation implements BlogService {
             String saveBlogImage = imageUtil.saveImage(requestDto.getImageUrl(), filePath.toString());
 
             blog.setImage(saveBlogImage);
+        }else {
+            blog.setImage(null);
         }
 
         blogRepo.save(blog);

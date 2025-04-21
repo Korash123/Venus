@@ -1,6 +1,6 @@
 package com.example.Venus.repo;
 
-import com.example.Venus.entities.FacultyStaff;
+
 import com.example.Venus.entities.FeedBack;
 import org.springframework.data.jpa.repository.JpaRepository;
 

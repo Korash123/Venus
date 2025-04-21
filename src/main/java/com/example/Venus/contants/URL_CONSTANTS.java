@@ -71,8 +71,8 @@ public class URL_CONSTANTS {
     }
 
 
-    public static class Courses{
-        public static final String COURSE_BASE_URL = API_VERSION_V1 + "/courses";
+    public static class PopOverModel{
+        public static final String POP_OVER_MODEL_URL = API_VERSION_V1 + "/pop-over-model";
     }
 
     public static class CourseContent{
