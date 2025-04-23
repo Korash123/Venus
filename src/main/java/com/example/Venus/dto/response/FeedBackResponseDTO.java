@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FeedBackResponseDTO {
+    private long id;
     private String message;
     private Long rating;
 

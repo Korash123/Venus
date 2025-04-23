@@ -54,6 +54,7 @@ public class EnquiryServiceImplementation implements EnquiryService {
 
         for (Enquiry enquiry : enquiryList) {
             EnquiryResponseDto dto = new EnquiryResponseDto();
+            dto.setId(enquiry.getId());
             dto.setName(enquiry.getName());
             dto.setPhoneNumber(enquiry.getPhoneNumber());
             dto.setEmail(enquiry.getEmail());

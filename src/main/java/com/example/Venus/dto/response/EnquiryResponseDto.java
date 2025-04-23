@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class EnquiryResponseDto {
 
+    private long id;
     private String name;
     private String phoneNumber;
     private String email;

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 
 public class BlogResponseDto {
-
+    private long id;
     private String title;
     private String content;
     private String imageUrl;

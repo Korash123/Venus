@@ -9,6 +9,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class EventNewResponseDto {
+    private long id;
     private String title;
     private String description;
     private String location;

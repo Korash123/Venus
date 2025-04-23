@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class FacultyStaffResponseDto {
+    private long id;
     private String title;
     private String description;
     private String imageUrl;

@@ -93,6 +93,7 @@ public class BlogServiceImplementation implements BlogService {
             }
 
             BlogResponseDto blogResponseDto = new BlogResponseDto();
+            blogResponseDto.setId(blog.getId());
             blogResponseDto.setTitle(blog.getTitle());
             blogResponseDto.setContent(blog.getContent());
 

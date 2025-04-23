@@ -78,6 +78,7 @@ public class FacultyStaffServiceImplementation implements FacultyStaffService {
             }
 
             FacultyStaffResponseDto responseDto = new FacultyStaffResponseDto();
+            responseDto.setId(facultyStaff.getId());
             responseDto.setTitle(facultyStaff.getTitle());
             responseDto.setDescription(facultyStaff.getDescription());
 

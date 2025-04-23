@@ -181,6 +181,7 @@ public class EventsNewsImplementation implements EventNewsService {
             }
 
             EventNewResponseDto dto = new EventNewResponseDto();
+            dto.setId(event.getId());
             dto.setTitle(event.getTitle());
             dto.setDescription(event.getDescription());
             dto.setLocation(event.getLocation());
