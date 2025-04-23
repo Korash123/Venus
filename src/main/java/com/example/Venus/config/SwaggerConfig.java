@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
     @project electro-point
     @author Korash.Waiba
 */
+
 @Configuration
 @OpenAPIDefinition(info = @io.swagger.v3.oas.annotations.info.Info(title = "VBM_SCHOOL", version = "1.0"))
 public class SwaggerConfig {

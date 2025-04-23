@@ -86,6 +86,32 @@ public class EmailUtils {
         log.info("Admin email sent successfully to {}", adminEmail);
     }
 
+    @Async
+    public void sendEnquiryNotificationEmail(String adminEmail, String name, String phoneNumber, String email, String program) throws MessagingException, UnsupportedEncodingException {
+        log.info("Sending enquiry notification to admin: {}", adminEmail);
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(senderEmail);
+        helper.setTo(adminEmail);
+        helper.setSentDate(new Date());
+        helper.setSubject("New Enquiry Received");
+
+        Context context = new Context();
+        context.setVariable("name", name);
+        context.setVariable("phoneNumber", phoneNumber);
+        context.setVariable("email", email);
+        context.setVariable("program", program);
+
+        String htmlTemplate = springTemplateEngine.process("mail_templates/enquiry_notification_email", context);
+        helper.setText(htmlTemplate, true);
+
+        javaMailSender.send(message);
+        log.info("Enquiry email sent to admin successfully");
+    }
+
+
 
 
 

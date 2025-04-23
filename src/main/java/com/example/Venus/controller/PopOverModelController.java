@@ -5,14 +5,11 @@ import com.example.Venus.contants.URL_CONSTANTS;
 import com.example.Venus.dto.global.GlobalApiRequest;
 import com.example.Venus.dto.global.GlobalApiResponse;
 import com.example.Venus.dto.request.PopOVerModelRequestDto;
-import com.example.Venus.dto.request.ProfilePictureRequestDto;
-import com.example.Venus.dto.response.EventNewResponseDto;
 import com.example.Venus.dto.response.PopOverModelResponseDto;
 import com.example.Venus.service.PopOverModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;

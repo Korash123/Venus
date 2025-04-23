@@ -75,8 +75,8 @@ public class URL_CONSTANTS {
         public static final String POP_OVER_MODEL_URL = API_VERSION_V1 + "/pop-over-model";
     }
 
-    public static class CourseContent{
-        public static final String COURSE_BASE_URL = API_VERSION_V1 + "/courseContent";
+    public static class Enquiry{
+        public static final String ENQUIRY_BASE_URL = API_VERSION_V1 + "/enquiry";
     }
 
 

@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/blog/**").authenticated()
                         .requestMatchers("/api/v1/feedback/**").authenticated()
                         .requestMatchers("/api/v1/pop-over-model/**").authenticated()
+                        .requestMatchers("/api/v1/enquiry/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

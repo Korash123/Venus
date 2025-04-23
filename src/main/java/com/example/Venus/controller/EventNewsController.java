@@ -58,8 +58,4 @@ public class EventNewsController extends BaseController {
         return getSuccessResponse("event.news.delete.success", "event deleted successfully", HttpStatus.NO_CONTENT);
     }
 
-
-
-
-
 }
