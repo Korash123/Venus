@@ -1,4 +1,4 @@
-package com.example.Venus.service;
+package com.example.Venus.service.popServiceImplementation;
 
 import com.example.Venus.dto.request.PopOVerModelRequestDto;
 import com.example.Venus.dto.response.PopOverModelResponseDto;
@@ -7,6 +7,7 @@ import com.example.Venus.entities.Users;
 import com.example.Venus.exception.ResourceNotFoundException;
 import com.example.Venus.repo.PopOverModelRepo;
 import com.example.Venus.repo.UsersRepo;
+import com.example.Venus.service.PopOverModelService;
 import com.example.Venus.utils.ImageUtil;
 import com.example.Venus.utils.LoggedInUserUtil;
 import com.example.Venus.utils.SymmetricEncryptionUtil;

@@ -79,6 +79,9 @@ public class URL_CONSTANTS {
         public static final String ENQUIRY_BASE_URL = API_VERSION_V1 + "/enquiry";
     }
 
+    public static class Banners{
+        public static final String BANNER_BASE_URL = API_VERSION_V1 + "/banner";
+    }
 
 
 }

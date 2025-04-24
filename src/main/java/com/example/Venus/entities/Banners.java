@@ -28,11 +28,5 @@ public class Banners extends BaseEntity {
     private String description;
     @Column(name = "image_url")
     private String imageUrl;
-    @Column(name = "start_date")
-    private LocalDateTime startDate;
-    @Column(name = "end_date")
-    private LocalDateTime endDate;
-    @Column(name = "is_active")
-    private Boolean isActive;
 
 }
