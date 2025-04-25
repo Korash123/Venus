@@ -38,6 +38,23 @@ public class SwaggerConfig {
                                 .url("API license URL")));
     }
 
+//    @Bean
+//    public OpenAPI openAPI() {
+//        return new OpenAPI()
+//                .openapi("3.0.1")
+//                .addSecurityItem(new SecurityRequirement()
+//                        .addList("Bearer Authentication"))
+//                .components(new Components()
+//                        .addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
+//                .info(new Info().title("VBM_SVHOOL")
+//                        .description("HR Management System for VBM.")
+//                        .version("1.0")
+//                        .contact(new Contact().email("").url(""))
+//                        .license(new License().name("License of API")
+//                                .url("API license URL")));
+//    }
+
+
     private SecurityScheme createAPIKeyScheme() {
         return new SecurityScheme().type(SecurityScheme.Type.HTTP)
                 .bearerFormat("JWT")
