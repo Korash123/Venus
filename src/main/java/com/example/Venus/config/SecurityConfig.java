@@ -31,16 +31,57 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/api/v1/user-reg/**").permitAll()
+                        .requestMatchers("/api/v1/user-reg/register").permitAll()
+                        .requestMatchers("/api/v1/user-reg/login").permitAll()
+                        .requestMatchers("/api/v1/user-reg/forgot-password").permitAll()
+                        .requestMatchers("/api/v1/user-reg/setPassword").permitAll()
+                        .requestMatchers("/api/v1/user-reg/logout").permitAll()
+                        .requestMatchers("/api/v1/user-reg/refreshToken").permitAll()
+                        .requestMatchers("/api/v1/user-reg/get/all").permitAll()
+
+
+
+
+
                         .requestMatchers("/api/v1/role/**").authenticated()
-                        .requestMatchers("/api/v1/event-news/**").authenticated()
-                        .requestMatchers("/api/v1/faculty-staffs/**").authenticated()
+
+                        .requestMatchers("/api/v1/event-news/get/all").permitAll()
+                        .requestMatchers("/api/v1/event-news/save").authenticated()
+                        .requestMatchers("/api/v1/event-news/get/{id}").authenticated()
+                        .requestMatchers("/api/v1/event-news/delete/{id}").authenticated()
+
+
+                        .requestMatchers("/api/v1/faculty-staffs/get/all").permitAll()
+                        .requestMatchers("/api/v1/faculty-staffs/save").authenticated()
+                        .requestMatchers("/api/v1/faculty-staffs/getById").authenticated()
+                        .requestMatchers("/api/v1/faculty-staffs/delete/{id}").authenticated()
+
+
+
                         .requestMatchers("/api/v1/profile-picture/**").authenticated()
-                        .requestMatchers("/api/v1/blog/**").authenticated()
-                        .requestMatchers("/api/v1/feedback/**").authenticated()
-                        .requestMatchers("/api/v1/pop-over-model/**").authenticated()
-                        .requestMatchers("/api/v1/enquiry/**").permitAll()
-                        .requestMatchers("/api/v1/banner/**").authenticated()
+
+                        .requestMatchers("/api/v1/blog/get/all").permitAll()
+                        .requestMatchers("/api/v1/blog/save").authenticated()
+                        .requestMatchers("/api/v1/blog/getById").authenticated()
+                        .requestMatchers("/api/v1/blog/delete/{id}").authenticated()
+
+                        .requestMatchers("/api/v1/feedback/summary").permitAll()
+                        .requestMatchers("/api/v1/feedback/save").authenticated()
+                        .requestMatchers("/api/v1/feedback/getById").authenticated()
+                        .requestMatchers("/api/v1/feedback/delete/{id}").authenticated()
+
+                        .requestMatchers("/api/v1/pop-over-model/get/all").permitAll()
+                        .requestMatchers("/api/v1/pop-over-model/save").authenticated()
+                        .requestMatchers("/api/v1/pop-over-model/delete/{id}").authenticated()
+
+                        .requestMatchers("/api/v1/enquiry/save").permitAll()
+                        .requestMatchers("/api/v1/enquiry/get/all").authenticated()
+                        .requestMatchers("/api/v1/enquiry/delete/{id}").authenticated()
+
+                        .requestMatchers("/api/v1/banner/get/all").permitAll()
+                        .requestMatchers("/api/v1/banner/save").authenticated()
+                        .requestMatchers("/api/v1/banner/delete/{id}").authenticated()
+
 
                         .anyRequest().authenticated()
                 )

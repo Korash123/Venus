@@ -94,4 +94,12 @@ public class BannerServiceImplementation implements BannerService {
         }
         return responseDtos;
     }
+
+    @Override
+    public void deleteBanner(Long id) {
+        Banners banners = bannerRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Banner not Found" + id));
+        banners.setIsDeleted(true);
+        bannerRepo.save(banners);
+    }
 }

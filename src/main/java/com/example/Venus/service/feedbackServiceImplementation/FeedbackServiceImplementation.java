@@ -80,5 +80,13 @@ public class FeedbackServiceImplementation implements FeedbackService {
         return response;
     }
 
+    @Override
+    public void deletedFeedback(Long id) {
+        FeedBack feedBack = feedbackRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Feedback Not Found"));
+        feedBack.setIsDeleted(true);
+        feedbackRepo.save(feedBack);
+    }
+
 
 }

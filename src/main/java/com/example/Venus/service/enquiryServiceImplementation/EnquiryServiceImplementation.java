@@ -4,6 +4,7 @@ package com.example.Venus.service.enquiryServiceImplementation;
 import com.example.Venus.dto.request.EnquiryRequestDto;
 import com.example.Venus.dto.response.EnquiryResponseDto;
 import com.example.Venus.entities.Enquiry;
+import com.example.Venus.exception.ResourceNotFoundException;
 import com.example.Venus.repo.EnquiryRepo;
 import com.example.Venus.service.EnquiryService;
 import com.example.Venus.utils.EmailUtils;
@@ -65,6 +66,13 @@ public class EnquiryServiceImplementation implements EnquiryService {
         return enquiryResponseDtoList;
     }
 
+    @Override
+    public void deleteEnquiry(Long id) {
+        Enquiry enquiry = enquiryRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Enquiry not Found"));
+        enquiry.setIsDeleted(true);
+        enquiryRepo.save(enquiry);
+    }
 
 
 }

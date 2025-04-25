@@ -6,6 +6,7 @@ import com.example.Venus.dto.request.ProfilePictureRequestDto;
 import com.example.Venus.dto.request.RegisterRequestDto;
 import com.example.Venus.dto.response.AuthLogResponse;
 import com.example.Venus.dto.response.ProfilePictureResponseDto;
+import com.example.Venus.dto.response.UserResponseDto;
 import com.example.Venus.entities.AuthLog;
 import com.example.Venus.entities.Users;
 import com.example.Venus.exception.BadRequestException;
@@ -32,6 +33,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -284,6 +287,36 @@ public class UserRegistrationImplementation implements UserRegistration {
                 .orElseThrow(() -> new ResourceNotFoundException("User Id not found "));
         user.setProfilePicture(null);
         usersRepo.save(user);
+    }
+
+    @Override
+    public List<UserResponseDto> getAllUser() throws Exception {
+        List<Users> users = usersRepo.findAll();
+
+        List<UserResponseDto> userResponseDtos = new ArrayList<>();
+
+        for (Users user : users) {
+            if (Boolean.TRUE.equals(user.getIsDeleted())) {
+                continue;
+            }
+
+            UserResponseDto userResponseDto = new UserResponseDto();
+            userResponseDto.setFullName(user.getFullName());
+            userResponseDto.setEmail(user.getEmail());
+            userResponseDto.setPhone(user.getPhone());
+
+            if (user.getProfilePicture() != null) {
+                String encryptedUrl = encryptionUtil.encrypt(user.getProfilePicture(),ENCRYPTION_KEY,
+                        SymmetricEncryptionUtil.EncryptionAlgorithm.AES_CBC);
+                userResponseDto.setProfilePicture(imageUtil.getImageUri(user.getProfilePicture(), encryptedUrl));
+            }else {
+                userResponseDto.setProfilePicture(null);
+            }
+            userResponseDtos.add(userResponseDto);
+
+        }
+
+        return userResponseDtos;
     }
 
 

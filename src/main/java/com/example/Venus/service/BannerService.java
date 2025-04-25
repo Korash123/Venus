@@ -9,4 +9,5 @@ import java.util.List;
 public interface BannerService {
     void createBanner(BannerRequestDto requestDto) throws IOException;
     List<BannersResponseDto> getAllBanner() throws Exception;
+    void deleteBanner(Long id);
 }

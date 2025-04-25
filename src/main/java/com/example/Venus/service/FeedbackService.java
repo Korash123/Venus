@@ -10,5 +10,6 @@ public interface FeedbackService {
     void createFeedback(FeedbackRequestDto feedbackRequestDto);
     FeedBackResponseDTO getFeedback();
     RatingSummaryResponseDTO getRatingSummary();
+    void deletedFeedback(Long id);
 
 }

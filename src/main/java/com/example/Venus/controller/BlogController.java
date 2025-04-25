@@ -33,6 +33,11 @@ public class BlogController extends BaseController {
     public GlobalApiResponse<?> getBlogById() throws Exception {
         return getSuccessResponse("blog.get",blogService.getBlogById(), HttpStatus.OK);
     }
+    @DeleteMapping(URL_CONSTANTS.COMMON.DELETE_BY_ID)
+    public GlobalApiResponse<?> deleteBlog(@PathVariable Long id) {
+        blogService.deleteBlog(id);
+        return getSuccessResponse("blog.delete.success", HttpStatus.NO_CONTENT);
+    }
 
 
 }

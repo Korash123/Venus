@@ -10,4 +10,5 @@ import java.util.List;
 public interface EnquiryService {
     void enquiry(EnquiryRequestDto enquiryRequestDto) throws MessagingException, UnsupportedEncodingException;
     List<EnquiryResponseDto> getAllEnquiry();
+    void deleteEnquiry(Long id);
 }

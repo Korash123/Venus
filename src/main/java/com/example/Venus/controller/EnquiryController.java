@@ -31,4 +31,11 @@ public class EnquiryController extends BaseController {
     public GlobalApiResponse<?> getAllEvents() {
         return  getSuccessResponse("enquiry.fetch.all", enquiryService.getAllEnquiry(),HttpStatus.OK);
     }
+
+    @DeleteMapping(URL_CONSTANTS.COMMON.DELETE_BY_ID)
+    public GlobalApiResponse<?> deleteEnquiry(@PathVariable Long id) {
+        enquiryService.deleteEnquiry(id);
+        return getSuccessResponse("enquiry.delete.success", HttpStatus.NO_CONTENT);
+    }
+
 }

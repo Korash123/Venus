@@ -6,7 +6,7 @@ import com.example.Venus.dto.global.GlobalApiRequest;
 import com.example.Venus.dto.global.GlobalApiResponse;
 import com.example.Venus.dto.request.*;
 import com.example.Venus.dto.response.AuthLogResponse;
-import com.example.Venus.dto.response.ProfilePictureResponseDto;
+import com.example.Venus.dto.response.UserResponseDto;
 import com.example.Venus.service.UserRegistration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+
+import java.util.List;
 
 
 @RestController
@@ -75,6 +75,11 @@ public class UserRegisterController extends BaseController {
         );
     }
 
+    @GetMapping(URL_CONSTANTS.COMMON.GET_ALL)
+    public GlobalApiResponse<?> getAllUser() throws Exception {
+        List<UserResponseDto> userResponseDtos =  userRegistration.getAllUser();
+        return getSuccessResponse("user.get.success",userResponseDtos, HttpStatus.OK);
+    }
 
 }
 

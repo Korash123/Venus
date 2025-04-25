@@ -6,9 +6,11 @@ import com.example.Venus.dto.request.ProfilePictureRequestDto;
 import com.example.Venus.dto.request.RegisterRequestDto;
 import com.example.Venus.dto.response.AuthLogResponse;
 import com.example.Venus.dto.response.ProfilePictureResponseDto;
+import com.example.Venus.dto.response.UserResponseDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface UserRegistration {
     void registerUser(RegisterRequestDto registerRequestDto) throws Exception;
@@ -20,6 +22,7 @@ public interface UserRegistration {
     void createOrUpdatedProfilePicture(ProfilePictureRequestDto profilePictureRequestDto) throws IOException;
     ProfilePictureResponseDto getProfilePicture() throws Exception;
     void deleteProfilePicture() throws Exception;
+    List<UserResponseDto> getAllUser() throws Exception;
 //  public void validateResetLink(ValidateRspwdData validateRspwdData) throws JsonProcessingException;
 
 }

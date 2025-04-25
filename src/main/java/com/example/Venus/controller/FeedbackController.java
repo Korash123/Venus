@@ -36,5 +36,10 @@ public class FeedbackController extends BaseController {
         RatingSummaryResponseDTO summaryResponseDTO = feedbackService.getRatingSummary();
         return getSuccessResponse("feedback.get", summaryResponseDTO,HttpStatus.OK);
     }
+    @DeleteMapping(URL_CONSTANTS.COMMON.DELETE_BY_ID)
+    public GlobalApiResponse<?> deletedFeedback(@PathVariable Long id) {
+        feedbackService.deletedFeedback(id);
+        return getSuccessResponse("feedback.delete.success", HttpStatus.NO_CONTENT);
+    }
 
 }

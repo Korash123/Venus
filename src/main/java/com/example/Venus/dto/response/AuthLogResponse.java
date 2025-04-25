@@ -19,4 +19,5 @@ public class AuthLogResponse {
     private String refreshToken;
     private String fullName;
     private String email;
+//    private String image;
 }
